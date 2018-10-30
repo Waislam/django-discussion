@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+	{% block content %}
+	<h1>
+		<a href="{% url 'boards:home' %}">Boards</a>/
+		<a href="{% url 'boards:topic' post.topic.board.pk %}">{{post.topic.board.name}}</a>/
+		<a href="{% url 'boards:topic_post' post.topic.board.pk post.topic.pk %}">{{post.topic.subject}}</a>
+		Edit
+		
+	</h1>
+		
+		  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'boards:topic_post' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+  </form>
+
+	
+
+	{% endblock content %}

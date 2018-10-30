@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load humanize %}
+	{% block content %}
+		
+		<h1>Boards</h1>
+		{{user.username}}
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Board</th>
+					<th>Post</th>
+					<th>Topics</th>
+					<th>Last Post</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if boards %}
+				{% for board in boards %}
+				<tr>
+					<td><a href="{% url 'boards:topic' board.pk %}">{{board.name}}</a>
+					<p>{{board.description}}</p>
+					</td>
+					<td>{{board.get_post_count}}</td>
+					<td>{{board.topics.count}}</td>
+
+					<td>
+						{% with post=board.get_last_post %}
+						{% if post %}
+							<a href="{% url 'boards:topic_post' board.pk post.topic.pk %}">{{post}}</a>
+							by {{post.created_by.username}} at {{post.created_at|naturaltime}}
+						{% else %}
+						<em>No post yet</em>
+						{% endif %}
+						{% endwith %}
+
+					</td>
+				</tr>
+				{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+
+		<h3><a href="{% url 'logout' %}">logout</a></h3>
+		<h3><a href="{% url 'login' %}">logIn</a></h3>
+	{% endblock content %}

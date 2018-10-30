@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+	{% block content %}
+		<h1><a href="{% url 'boards:home' %}">Boards</a>/<a href="{% url 'boards:topic' board.pk %}">{{board.name}}</a>/New</h1>
+
+		<form action="" method="post">
+			{% csrf_token %}
+			{% include 'includes/form.html' %}
+			<input type="submit" value="save">
+		</form>
+
+				
+			
+	{% endblock content %}
